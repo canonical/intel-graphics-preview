@@ -1,22 +1,43 @@
 # Intel Graphics Preview
-## About
-This project represents a collaboration between Intel and Canonical to enable the latest Intel hardware with newer graphics package versions than might be available in the latest Ubuntu release. 
 
-## Install LNL and BMG Graphics Stack
+## 1. Introduction
+This project is a collaboration between Intel and Canonical to provide early preview of kernel and userspace support for new Intel GPUs.  Some components are directly from Ubuntu archives and some are from a [PPA](https://launchpad.net/~kobuk-team/+archive/ubuntu/intel-graphics).  
 
-**Archive:** Staging
+While the mainline Ubuntu 24.10 kernel already has much of the support, we are using the `linux-intel` kernel from the PPA at this time because of some additional patches that have not landed in the mainline kernel yet.
 
-The following instructions reflect the current best known configuration for machines running Intel Lunar Lake or Battlemage hardware. 
+## 2. Report an Issue
+Please submit issues [here](https://github.com/canonical/intel-graphics-preview/issues) and we'll get back to you ASAP.
 
- ### Oracular
-```
-sudo add-apt-repository ppa:kobuk-team/intel-graphics-staging
-sudo apt update
-sudo apt upgrade
+## 3. Supported Intel GPUs
+This preview supports up to and including the following:
+* Lunar Lake (LNL)
+* Battle Mage (BMG) (Initial support)
 
-sudo apt install intel-gsc libigdgmm12 libigc1 intel-level-zero-gpu-raytracing intel-media-va-driver libze1 vainfo libvpl2 libvpl-tools libmetee4 intel-metrics-discovery intel-metrics-library libmfx-gen1.2 libxpum-dev libtbb12  libtbbmalloc2 linux-intel
-```
-Now we just need to do a quick reboot!
-```
-sudo reboot
-```
+## 4. Supported Ubuntu Versions
+* Ubuntu 24.10 Desktop 
+
+## 5. Setup System and Install Graphics Stack
+
+### 5.1 Install Ubuntu 24.10 Desktop
+
+1. Download and install [Ubuntu 24.10 Desktop](https://releases.ubuntu.com/24.10/) on the host machine.
+
+### 5.2 Install Graphics Stack
+
+1. Clone this repo.
+
+   ```bash
+   git clone https://github.com/canonical/intel-graphics-preview.git
+   ```
+
+2. Run script to install the stack.
+
+   ```bash
+   cd intel-graphics-preview
+   ./setup-intel-graphics.sh
+   ```
+
+3. Reboot.
+
+## 6. Additional Resources
+* [Intel Client GPUs Guide](https://dgpu-docs.intel.com/driver/client/overview.html)
