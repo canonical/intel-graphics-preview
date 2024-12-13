@@ -11,6 +11,7 @@ Please submit issues [here](https://github.com/canonical/intel-graphics-preview/
 ## 3. Supported Intel GPUs
 This preview supports up to and including the following:
 * Intel® Core™ Ultra Mobile Processors (Series 2) (Codename: Lunar Lake)
+* Intel® Arc™ B-Series graphics cards (Codename: Battlemage)
 
 ## 4. Supported Ubuntu Versions
 * Ubuntu 24.10 Desktop 
