@@ -1,29 +1,22 @@
 #!/bin/bash
 
-SUPPORTED_DISTRO="Ubuntu"
-distro="Ubuntu"
-os_release="24.04"
+SUPPORTED_DISTRO="ubuntu"
+. /etc/os-release
 
-if ! command -v lsb_release >/dev/null 2>&1
-then
-  echo "lsb_release command not found, assuming ${distro} ${os_release} host."
-else
-  distro=$(lsb_release -is)
-  os_release=$(lsb_release -rs)
-fi
+[[ "${ID}" != "${SUPPORTED_DISTRO}" ]] && echo "These packages are only supported on ${SUPPORTED_DISTRO}" && exit 1
 
-[[ "${distro}" != "${SUPPORTED_DISTRO}" ]] && echo "These packages are only supported on ${SUPPORTED_DISTRO}" && exit 1
+sudo apt-get update && sudo apt-get install -y software-properties-common
+sudo add-apt-repository -y ppa:kobuk-team/intel-graphics
+sudo apt-get update
 
-sudo add-apt-repository ppa:kobuk-team/intel-graphics
-sudo apt update
-sudo apt upgrade
+sudo apt-get install -y intel-gsc libigdgmm12 libigc2 libze-intel-gpu-raytracing intel-media-va-driver-non-free \
+	libze1 vainfo libvpl2 libvpl-tools intel-metrics-discovery intel-metrics-library libmfx-gen1 \
+	xpu-smi intel-opencl-icd libze-intel-gpu1
 
-sudo apt install intel-gsc libigdgmm12 libigc2 libze-intel-gpu-raytracing intel-media-va-driver-non-free libze1 vainfo libvpl2 libvpl-tools libmetee4 intel-metrics-discovery intel-metrics-library libmfx-gen1 libxpum-dev libtbb12 libtbbmalloc2 intel-opencl-icd libze-intel-gpu1
+echo -e "\e[1;33m   Installation of Intel graphics stack complete!  \e[0m"
 
-echo "Installation of Intel graphics stack complete!"
-
-if [[ "${os_release}" == "24.04" ]] || [[ "${os_release}" == "24.10" ]]; then
-  sudo apt install linux-intel
-  echo "Installation of linux-intel kernel complete! Please reboot now."
+if [[ "${VERSION_ID}" == "24.04" ]] || [[ "${VERSION_ID}" == "25.04" ]]; then
+  echo -e "\e[1;33m⚠️  Would you like to install the kobuk linux-intel kernel? ⚠️\e[0m"
+  sudo apt-get install linux-intel
 fi
 
