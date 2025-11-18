@@ -16,7 +16,11 @@ sudo apt-get install -y intel-gsc libigdgmm12 libigc2 libze-intel-gpu-raytracing
 echo -e "\e[1;33m   Installation of Intel graphics stack complete!  \e[0m"
 
 if [[ "${VERSION_ID}" == "24.04" ]] || [[ "${VERSION_ID}" == "25.04" ]]; then
-  echo -e "\e[1;33m⚠️  Would you like to install the kobuk linux-intel kernel? ⚠️\e[0m"
-  sudo apt-get install linux-intel
+  read -p $'\e[1;33m⚠️  Would you like to install the kobuk linux-intel kernel? ⚠️\e[0m (y/n): ' -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo apt-get install linux-intel -y
+  else
+    echo "Skipping linux-intel kernel installation."
+  fi
 fi
-
